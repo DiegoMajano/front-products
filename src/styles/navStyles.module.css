@@ -1,0 +1,60 @@
+/* Contenedor principal */
+.main {
+  display: flex;
+  flex-direction: column; /* Aseguramos que el nav está en la parte superior */
+}
+
+/* Estilo del nav */
+nav {
+  background-color: #363a45;
+  display: flex;
+  justify-content: space-between; /* Logo a la izquierda, opciones a la derecha */
+  align-items: center;
+  padding: 10px 20px; /* Espaciado interno del nav */
+  width: 100%;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para mejor visual */
+}
+
+/* Logo */
+nav img {
+  max-height: 50px; /* Ajusta la altura máxima del logo */
+  object-fit: contain; /* Asegura que el logo se escala correctamente */
+}
+
+/* Estilo del ul (lista) */
+nav ul {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Alineamos las opciones a la derecha */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Elementos de la lista */
+nav li {
+  margin: 0 10px; /* Espaciado horizontal entre opciones */
+}
+
+/* Estilo de los links */
+nav li a {
+  color: white;
+  font-size: 1.2rem;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Efecto hover */
+nav li a:hover {
+  background-color: #4e545e;
+  color: #fff;
+}
+
+/* Estilo para el link activo */
+.nav-active {
+  color: grey;
+  font-weight: bold;
+  border-bottom: 2px solid white; /* Agrega una línea indicadora */
+}
