@@ -6,11 +6,7 @@ const NavBar = () => {
   return (
     <nav className={styles.nav}>
       {/* Logo */}
-      <img
-        src="https://via.placeholder.com/50"
-        alt="Logo"
-        className={styles.logo}
-      />
+      <img src="" alt="Logo" className={styles.logo} title="PRODUCTKODIGO" />
 
       {/* Opciones de navegación */}
       <ul>

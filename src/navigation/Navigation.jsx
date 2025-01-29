@@ -6,10 +6,33 @@ import {
   Navigate,
 } from "react-router-dom";
 import NavBar from "../components/NavBar";
-import { Products } from "../pages/Products";
 import Dashboard from "../pages/Dashboard";
 import Login from "../auth/Login";
+import { Products } from "../pages/Products";
 
+const products = [
+  {
+    id: 1,
+    name: "Laptop",
+    description: "Laptop gaming ultra rápida",
+    price: 1200.99,
+    quantity: 5,
+  },
+  {
+    id: 2,
+    name: "Smartphone",
+    description: "Celular con cámara de 108MP",
+    price: 899.99,
+    quantity: 10,
+  },
+  {
+    id: 3,
+    name: "Headphones",
+    description: "Auriculares ",
+    price: 199.99,
+    quantity: 15,
+  },
+];
 const Navigation = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -43,7 +66,11 @@ const Navigation = () => {
         <Route
           path="/products"
           element={
-            isAuthenticated ? <Products /> : <Navigate to="/login" replace />
+            isAuthenticated ? (
+              <Products products={products} />
+            ) : (
+              <Navigate to="/login" replace />
+            )
           }
         />
 
