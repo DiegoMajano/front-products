@@ -8,7 +8,6 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   color: #333; /* Color de texto global */
-  background-color: #f8f9fa; /* Fondo general (puedes personalizarlo) */
   line-height: 1.6; /* Mejora la legibilidad */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
