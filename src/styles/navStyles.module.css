@@ -1,31 +1,33 @@
 /* Contenedor principal */
 .main {
   display: flex;
-  flex-direction: column; /* Aseguramos que el nav está en la parte superior */
+  flex-direction: column;
 }
 
 /* Estilo del nav */
 nav {
-  background-color: #363a45;
+  background-color: #2d3b45; /* Fondo oscuro profesional */
   display: flex;
-  justify-content: space-between; /* Logo a la izquierda, opciones a la derecha */
+  justify-content: space-between;
   align-items: center;
-  padding: 10px 20px; /* Espaciado interno del nav */
+  padding: 15px 30px;
   width: 100%;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para mejor visual */
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); /* Sombra más marcada */
+  position: sticky;
+  top: 0;
+  z-index: 10; /* Fijamos el nav al top */
 }
 
 /* Logo */
 nav img {
-  max-height: 50px; /* Ajusta la altura máxima del logo */
-  object-fit: contain; /* Asegura que el logo se escala correctamente */
+  max-height: 50px;
+  object-fit: contain;
 }
 
 /* Estilo del ul (lista) */
 nav ul {
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* Alineamos las opciones a la derecha */
   list-style: none;
   margin: 0;
   padding: 0;
@@ -33,28 +35,78 @@ nav ul {
 
 /* Elementos de la lista */
 nav li {
-  margin: 0 10px; /* Espaciado horizontal entre opciones */
+  margin: 0 20px; /* Espaciado más grande entre opciones */
 }
 
 /* Estilo de los links */
 nav li a {
-  color: white;
+  color: #ffffff;
   font-size: 1.2rem;
   text-decoration: none;
-  padding: 5px 10px;
+  padding: 10px 20px; /* Más relleno para los enlaces */
   border-radius: 4px;
-  transition: all 0.3s ease-in-out;
+  font-weight: 500;
+  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Efecto hover */
 nav li a:hover {
-  background-color: #4e545e;
-  color: #fff;
+  background-color: #4b636e; /* Fondo más claro al pasar el cursor */
+  color: #ffffff;
 }
 
 /* Estilo para el link activo */
 .nav-active {
-  color: grey;
+  color: #f5a623; /* Un color cálido para resaltar el enlace activo */
   font-weight: bold;
-  border-bottom: 2px solid white; /* Agrega una línea indicadora */
+  border-bottom: 3px solid #f5a623; /* Línea sólida para el enlace activo */
+  padding-bottom: 8px; /* Ajuste de espacio debajo del enlace */
+}
+
+/* Barra de separación en el menú */
+nav hr {
+  border: 0;
+  border-top: 1px solid #ffffff;
+  margin-top: 10px;
+  width: 90%;
+}
+
+/* Estilo para el botón de logout */
+nav button {
+  background-color: #d9534f; /* Rojo para el botón de logout */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+/* Efecto hover del botón de logout */
+nav button:hover {
+  background-color: #c9302c;
+}
+
+/* Estilos adicionales responsivos para móviles */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav ul {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  nav li {
+    width: 100%;
+    text-align: left;
+  }
+
+  nav button {
+    margin-top: 10px;
+  }
 }

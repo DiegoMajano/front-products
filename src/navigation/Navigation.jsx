@@ -1,84 +1,41 @@
-import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
-import NavBar from "../components/NavBar";
-import Dashboard from "../pages/Dashboard";
-import Login from "../auth/Login";
-import { Products } from "../pages/Products";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const products = [
-  {
-    id: 1,
-    name: "Laptop",
-    description: "Laptop gaming ultra rápida",
-    price: 1200.99,
-    quantity: 5,
-  },
-  {
-    id: 2,
-    name: "Smartphone",
-    description: "Celular con cámara de 108MP",
-    price: 899.99,
-    quantity: 10,
-  },
-  {
-    id: 3,
-    name: "Headphones",
-    description: "Auriculares ",
-    price: 199.99,
-    quantity: 15,
-  },
-];
-const Navigation = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+const Navigation = ({ setIsAuthenticated }) => {
+  const navigate = useNavigate();
 
-  // Verificar si hay un token almacenado (autenticación)
   useEffect(() => {
-    const token = localStorage.getItem("fake"); // Verifica si existe un token
-    setIsAuthenticated(!!token); // Si el token existe, el usuario está autenticado
-  }, []);
+    const checkAuth = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) return;
 
-  return (
-    <Router>
-      {/* Renderiza la barra de navegación solo si el usuario está autenticado */}
-      {isAuthenticated && <NavBar />}
+      try {
+        const response = await fetch("http://127.0.0.1:8000/api/user", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      <Routes>
-        {/* Ruta del Login */}
-        <Route
-          path="/login"
-          element={<Login setIsAuthenticated={setIsAuthenticated} />}
-        />
+        if (response.ok) {
+          setIsAuthenticated(true);
+        } else {
+          localStorage.removeItem("token");
+          setIsAuthenticated(false);
+          navigate("/login");
+        }
+      } catch (error) {
+        console.error("Error verificando autenticación", error);
+        localStorage.removeItem("token");
+        setIsAuthenticated(false);
+        navigate("/login");
+      }
+    };
 
-        {/* Ruta Protegida (Dashboard) */}
-        <Route
-          path="/dashboard"
-          element={
-            isAuthenticated ? <Dashboard /> : <Navigate to="/login" replace />
-          }
-        />
+    checkAuth();
+  }, [setIsAuthenticated, navigate]);
 
-        {/* Ruta Protegida (Products) */}
-        <Route
-          path="/products"
-          element={
-            isAuthenticated ? (
-              <Products products={products} />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        />
-
-        {/* Redirige cualquier ruta no válida al login */}
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    </Router>
-  );
+  return null; // No renderiza nada, solo maneja la autenticación
 };
 
 export default Navigation;
