@@ -12,6 +12,7 @@ const Products = () => {
       html: `
         <input id="product-name" class="swal2-input" placeholder="Nombre del Producto" value="${product.name}" />
         <input id="product-description" class="swal2-input" placeholder="Descripción" value="${product.description}" />
+        <input id="product-url" class="swal2-input visually-hidden" placeholder="URL" value="${product.image_url}"  />
         <input id="product-price" class="swal2-input" placeholder="Precio" type="number" value="${product.price.toFixed(2)}" />
         <input id="product-quantity" class="swal2-input" placeholder="Cantidad" type="number" value="${product.quantity}" />
       `,
@@ -20,6 +21,7 @@ const Products = () => {
       preConfirm: async () => {
         const name = document.getElementById("product-name").value;
         const description = document.getElementById("product-description").value;
+        const image_url = document.getElementById("product-url").value;
         const price = parseFloat(document.getElementById("product-price").value).toFixed(2);
         const quantity = parseInt(document.getElementById("product-quantity").value, 10);
 
@@ -29,6 +31,7 @@ const Products = () => {
           const response = await axios.patch(`http://127.0.0.1:8000/api/v1/products/${product.id}`, {
             name,
             description,
+            image_url,
             price,
             quantity
           }, {
@@ -43,6 +46,8 @@ const Products = () => {
             setProducts((prevProducts) => prevProducts.map((prod) =>
               prod.id === updatedProduct.id ? updatedProduct : prod
             ));
+            
+            window.location.reload();
             return true;
           } else {
             throw new Error("No se pudo actualizar el producto");
@@ -62,6 +67,7 @@ const Products = () => {
       html: `
         <input id="new-product-name" class="swal2-input" placeholder="Nombre del Producto" />
         <input id="new-product-description" class="swal2-input" placeholder="Descripción" />
+        <input id="new-product-url" class="swal2-input" placeholder="Url" />
         <input id="new-product-price" class="swal2-input" placeholder="Precio" type="number" />
         <input id="new-product-quantity" class="swal2-input" placeholder="Cantidad" type="number" />
       `,
@@ -70,6 +76,7 @@ const Products = () => {
       preConfirm: async () => {
         const name = document.getElementById("new-product-name").value;
         const description = document.getElementById("new-product-description").value;
+        const image_url = document.getElementById("new-product-url").value;
         const price = parseFloat(document.getElementById("new-product-price").value).toFixed(2);
         const quantity = parseInt(document.getElementById("new-product-quantity").value, 10);
 
@@ -79,6 +86,7 @@ const Products = () => {
           const response = await axios.post("http://127.0.0.1:8000/api/v1/products", {
             name,
             description,
+            image_url,
             price,
             quantity
           }, {
@@ -91,6 +99,8 @@ const Products = () => {
           if (response.status === 201) {
             const newProduct = response.data;
             setProducts((prevProducts) => [...prevProducts, newProduct]);
+            window.location.reload();
+
             return true;
           } else {
             throw new Error("No se pudo agregar el producto");
