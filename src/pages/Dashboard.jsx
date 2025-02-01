@@ -12,6 +12,8 @@ const Dashboard = () => {
   const [loadingProducts, setLoadingProducts] = useState(true); // Estado de carga para productos
   const [loadingComments, setLoadingComments] = useState(false); // Estado de carga para comentarios
 
+  const token = localStorage.getItem("token");
+
   // Obtiene productos al cargar el dashboard
   useEffect(() => {
     // Llama a la API para obtener los productos
@@ -28,7 +30,6 @@ const Dashboard = () => {
 
   // Obtiene los comentarios de un producto
   const fetchComments = (productId) => {
-    console.log(productId);
     setLoadingComments(true); // Iniciar carga de comentarios
     axios.get(`http://127.0.0.1:8000/api/v1/comments/${productId}`)
       .then(response => {
@@ -52,10 +53,15 @@ const Dashboard = () => {
       comment: newComment,
       assessment: newAssessment, // Evaluación seleccionada
       product_id: selectedProductId,
-      user_id: 1, // Suponiendo que el usuario tiene ID 1, puedes ajustarlo según tu sistema
+      user_id: 7, // Suponiendo que el usuario tiene ID 1, puedes ajustarlo según tu sistema
     };
 
-    axios.post("http://127.0.0.1:8000/api/v1/comments", newCommentData)
+    axios.post("http://127.0.0.1:8000/api/v1/comments", newCommentData,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    })
       .then(response => {
         setNewComment(""); // Limpia el campo de texto
         setNewAssessment(1); // Resetea la evaluación a su valor por defecto
