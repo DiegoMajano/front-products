@@ -28,8 +28,9 @@ const Dashboard = () => {
 
   // Obtiene los comentarios de un producto
   const fetchComments = (productId) => {
+    console.log(productId);
     setLoadingComments(true); // Iniciar carga de comentarios
-    axios.get(`http://127.0.0.1:8000/api/v1/comments`)
+    axios.get(`http://127.0.0.1:8000/api/v1/comments/${productId}`)
       .then(response => {
         setComments(response.data); // Guardamos los comentarios
         setLoadingComments(false); // Finaliza carga de comentarios
@@ -115,7 +116,7 @@ const Dashboard = () => {
                     <p>{comment.comment}</p>
                     <p><strong>Evaluación: </strong>{comment.assessment}</p>
                     <small className="text-muted">
-                      Usuario ID: {comment.user_id} | Fecha: {new Date(comment.created_at).toLocaleString()}
+                      Usuario: {comment.username} | Fecha: {new Date(comment.created_at).toLocaleString()}
                     </small>
                   </div>
                 ))
